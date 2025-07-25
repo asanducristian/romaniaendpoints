@@ -1,0 +1,96 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model County {
+  id        Int    @id @default(autoincrement())
+  name      String
+  code      String @unique
+  cod_judet String @default("00")
+
+  @@map("counties")
+}
+
+model Locality {
+  id         Int    @id @default(autoincrement())
+  nume       String
+  diacritice String
+  judet      String
+  auto       String
+  zip        String
+  populatie  Int
+  lat        String
+  lng        String
+  altitude   String @default("0")
+
+  @@map("localities")
+}
+
+model PostalCode {
+  id            Int    @id @default(autoincrement())
+  code          String @unique // Cod poștal
+  county        String // Județ
+  locality      String // Localitate
+  streetAddress String // Strada și numărul
+  postalSubunit String // Subunitatea poștală
+
+  @@map("postal_codes")
+}
+
+model Company {
+  id                        Int      @id @default(autoincrement())
+  cui                       Int      @unique
+  // Date generale
+  data                      String?
+  denumire                  String?
+  adresa                    String?
+  telefon                   String?
+  fax                       String?
+  codPostal                 String?
+  act                       String?
+  stare_inregistrare        String?
+  data_inreg_Reg_RO_e_Factura String?
+  organFiscalCompetent      String?
+  forma_de_proprietate      String?
+  forma_organizare          String?
+  forma_juridica            String?
+  nrRegCom                  String?
+  cod_CAEN                  String?
+  iban                      String?
+  statusRO_e_Factura        Boolean?
+  data_inregistrare         String?
+  
+  // Adresa sediu social
+  s_tara                    String?
+  s_denumire_Localitate     String?
+  s_denumire_Strada         String?
+  s_numar_Strada            String?
+  s_cod_Localitate          String?
+  s_denumire_Judet          String?
+  s_cod_Judet               String?
+  s_cod_JudetAuto           String?
+  s_detalii_Adresa          String?
+  s_cod_Postal              String?
+  
+  // Adresa domiciliu fiscal
+  d_tara                    String?
+  d_denumire_Localitate     String?
+  d_numar_Strada            String?
+  d_denumire_Strada         String?
+  d_cod_Localitate          String?
+  d_denumire_Judet          String?
+  d_cod_Judet               String?
+  d_cod_JudetAuto           String?
+  d_detalii_Adresa          String?
+  d_cod_Postal              String?
+  
+  createdAt                 DateTime @default(now())
+  updatedAt                 DateTime @updatedAt
+
+  @@map("companies")
+}

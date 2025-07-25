@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Romania Endpoints API</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #002B7F 0%, #1a365d 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .main-content {
+            max-width: 800px;
+            width: 100%;
+        }
+        
+        .flag {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+        
+        .description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 50px;
+            opacity: 0.8;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .project-info {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .project-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+        
+        .project-info p {
+            font-size: 1rem;
+            line-height: 1.5;
+            opacity: 0.8;
+        }
+        
+        .cta-section {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 60px;
+        }
+        
+        .docs-link {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-weight: 500;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .docs-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        .github-link {
+            background: transparent;
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-weight: 500;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+        
+        .github-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        .free-badge {
+            background: linear-gradient(45deg, #10b981, #059669);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+        
+        .footer {
+            position: absolute;
+            bottom: 30px;
+            width: 100%;
+            text-align: center;
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .description {
+                font-size: 1rem;
+            }
+            
+            .project-info {
+                padding: 20px;
+            }
+            
+            .cta-section {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .docs-link, .github-link {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <div class="flag">🇷🇴</div>
+        <h1>Romania Endpoints API</h1>
+        <div class="subtitle">Date geografice și corporative pentru România</div>
+        
+        <div class="free-badge">Gratuit & Open Source</div>
+        
+        <div class="description">
+            API complet pentru județele, localitățile, codurile poștale și companiile din România.
+            <br>Include coordonate, date despre populație, informații geografice și verificare CUI-uri prin ANAF.
+        </div>
+
+        <div class="project-info">
+            <h3>📊 Despre proiect</h3>
+            <p>
+                Acesta este un proiect conceput pentru orice tip de date, dar în prezent se concentrează pe datele geografice și corporative românești. 
+                API-ul include acum și funcționalitate de verificare a companiilor prin CUI (Cod Unic de Înregistrare), 
+                integrându-se direct cu baza de date ANAF pentru informații actualizate.
+                <br><br>
+                Pentru mai multe funcționalități, aștept tickete pe GitHub. 
+                Oricine dorește să extindă proiectul este mai mult decât binevenit să contribuie pe GitHub!
+            </p>
+        </div>
+        
+        <div class="cta-section">
+            <a href="/api/docs" class="docs-link">📖 Documentația API</a>
+            <a href="https://github.com/alexandrusandu/romaniaendpoints" class="github-link" target="_blank">🔗 GitHub</a>
+        </div>
+    </div>
+    
+    <div class="footer">
+        Făcut în România cu ❤️
+    </div>
+</body>
+</html> 
