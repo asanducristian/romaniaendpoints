@@ -60,16 +60,41 @@ If you want to run this locally or contribute code:
 
 ```bash
 # Clone the repository
-git clone https://github.com/alexandrusandu/romaniaendpoints.git
+git clone https://github.com/asanducristian/romaniaendpoints.git
 
 # Install dependencies
 npm install
+
+# Set up environment variables
+cp .env.example .env
+# Edit .env with your database URL and other settings
 
 # Set up your database
 npx prisma db push
 
 # Start the development server
 npm run start:dev
+```
+
+### Environment Variables
+
+Create a `.env` file in the root directory with the following variables:
+
+```env
+# Database
+DATABASE_URL="mysql://username:password@localhost:3306/romaniaendpoints_db"
+
+# Application
+PORT=3010
+NODE_ENV=development
+
+# Base URL for the application (used in logs and Swagger)
+BASE_URL=http://localhost:3010
+```
+
+For production, update `BASE_URL` to your actual domain:
+```env
+BASE_URL=https://your-domain.com
 ```
 
 ## Get in Touch

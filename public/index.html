@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Romania Endpoints API</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🇷🇴</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,8 +14,8 @@
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #002B7F 0%, #1a365d 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #334155 100%);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -22,116 +24,225 @@
             color: white;
             text-align: center;
             padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Background decoration */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(239, 68, 68, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(245, 158, 11, 0.1) 0%, transparent 50%);
+            pointer-events: none;
         }
         
         .main-content {
-            max-width: 800px;
+            max-width: 1300px;
             width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header-section {
+            margin-bottom: 60px;
         }
         
         .flag {
-            font-size: 3rem;
-            margin-bottom: 20px;
+            font-size: 4rem;
+            margin-bottom: 30px;
+            display: inline-block;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
         }
         
         h1 {
-            font-size: 3.5rem;
-            font-weight: 300;
+            font-size: 4.5rem;
+            font-weight: 700;
             margin-bottom: 20px;
-            letter-spacing: -0.02em;
+            letter-spacing: 0.01em;
+            background: linear-gradient(135deg, #ffffff, #e2e8f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
         }
         
         .subtitle {
             font-size: 1.5rem;
-            opacity: 0.9;
-            margin-bottom: 30px;
-            font-weight: 300;
+            opacity: 0.8;
+            margin-bottom: 40px;
+            font-weight: 400;
+            color: #cbd5e1;
+            letter-spacing: 0.04em;
+        }
+        
+        .free-badge {
+            background: linear-gradient(135deg, #10b981, #059669);
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+            transform: translateY(0);
+            transition: all 0.3s ease;
+            letter-spacing: 0.05em;
+        }
+        
+        .free-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(16, 185, 129, 0.4);
         }
         
         .description {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 50px;
-            opacity: 0.8;
-            max-width: 650px;
+            font-size: 1.2rem;
+            line-height: 1.7;
+            margin-bottom: 60px;
+            opacity: 0.9;
+            max-width: 700px;
             margin-left: auto;
             margin-right: auto;
+            color: #e2e8f0;
+            font-weight: 400;
+            letter-spacing: 0.03em;
         }
         
-        .project-info {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-bottom: 60px;
         }
         
-        .project-info h3 {
-            font-size: 1.2rem;
-            margin-bottom: 15px;
+        .info-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(20px);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .info-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ef4444);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        .info-card:hover::before {
+            opacity: 1;
+        }
+        
+        .info-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+            color: #f8fafc;
+            letter-spacing: 0.04em;
+        }
+        
+        .info-card p {
+            font-size: 1.05rem;
+            line-height: 1.6;
             opacity: 0.9;
-        }
-        
-        .project-info p {
-            font-size: 1rem;
-            line-height: 1.5;
-            opacity: 0.8;
+            color: #cbd5e1;
+            font-weight: 400;
+            letter-spacing: 0.02em;
         }
         
         .cta-section {
             display: flex;
-            gap: 30px;
+            gap: 20px;
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
-            margin-bottom: 60px;
+            margin-bottom: 80px;
+        }
+        
+        .cta-button {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            padding: 18px 36px;
+            border-radius: 12px;
+            font-weight: 600;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            font-size: 1.05rem;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            min-width: 180px;
+            letter-spacing: 0.04em;
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .cta-button:hover::before {
+            left: 100%;
+        }
+        
+        .cta-button:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
         
         .docs-link {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            text-decoration: none;
-            padding: 15px 30px;
-            border-radius: 8px;
-            font-weight: 500;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            transition: all 0.3s ease;
-            font-size: 1.1rem;
-            backdrop-filter: blur(10px);
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            border-color: #3b82f6;
         }
         
         .docs-link:hover {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: rgba(255, 255, 255, 0.5);
-            transform: translateY(-2px);
+            background: linear-gradient(135deg, #2563eb, #1e40af);
+            border-color: #2563eb;
         }
         
         .github-link {
-            background: transparent;
-            color: white;
-            text-decoration: none;
-            padding: 15px 30px;
-            border-radius: 8px;
-            font-weight: 500;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            transition: all 0.3s ease;
-            font-size: 1.1rem;
+            background: linear-gradient(135deg, #374151, #1f2937);
+            border-color: #4b5563;
         }
         
         .github-link:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.5);
-            transform: translateY(-2px);
-        }
-        
-        .free-badge {
-            background: linear-gradient(45deg, #10b981, #059669);
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-weight: 500;
-            font-size: 0.9rem;
-            display: inline-block;
-            margin-bottom: 30px;
+            background: linear-gradient(135deg, #4b5563, #374151);
+            border-color: #6b7280;
         }
         
         .footer {
@@ -139,13 +250,39 @@
             bottom: 30px;
             width: 100%;
             text-align: center;
-            opacity: 0.6;
+            opacity: 0.5;
             font-size: 0.9rem;
+            font-weight: 400;
+            color: #94a3b8;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .header-section {
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        .info-card {
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+        
+        .cta-section {
+            animation: fadeInUp 0.8s ease-out 0.4s both;
         }
         
         @media (max-width: 768px) {
             h1 {
-                font-size: 2.5rem;
+                font-size: 3rem;
             }
             
             .subtitle {
@@ -153,58 +290,89 @@
             }
             
             .description {
-                font-size: 1rem;
+                font-size: 1.1rem;
             }
             
-            .project-info {
-                padding: 20px;
+            .info-card {
+                padding: 30px 25px;
             }
             
             .cta-section {
                 flex-direction: column;
-                gap: 20px;
+                gap: 15px;
             }
             
-            .docs-link, .github-link {
+            .cta-button {
                 width: 100%;
                 max-width: 300px;
+                padding: 16px 32px;
+            }
+            
+            .flag {
+                font-size: 3rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .description {
+                font-size: 1rem;
+            }
+            
+            .info-card {
+                padding: 25px 20px;
             }
         }
     </style>
 </head>
 <body>
     <div class="main-content">
-        <div class="flag">🇷🇴</div>
-        <h1>Romania Endpoints API</h1>
-        <div class="subtitle">Date geografice și corporative pentru România</div>
-        
-        <div class="free-badge">Gratuit & Open Source</div>
-        
-        <div class="description">
-            API complet pentru județele, localitățile, codurile poștale și companiile din România.
-            <br>Include coordonate, date despre populație, informații geografice și verificare CUI-uri prin ANAF.
+        <div class="header-section">
+            <div class="flag">🇷🇴</div>
+            <h1>Romania Endpoints API</h1>
+            <div class="subtitle">Date geografice și corporative pentru România</div>
+            
+            <div class="free-badge">Gratuit & Open Source</div>
+            
+            <div class="description">
+                API complet pentru județele, localitățile, codurile poștale și companiile din România.
+                Include coordonate, date despre populație, informații geografice și verificare CUI-uri prin ANAF.
+            </div>
         </div>
 
-        <div class="project-info">
-            <h3>📊 Despre proiect</h3>
-            <p>
-                Acesta este un proiect conceput pentru orice tip de date, dar în prezent se concentrează pe datele geografice și corporative românești. 
-                API-ul include acum și funcționalitate de verificare a companiilor prin CUI (Cod Unic de Înregistrare), 
-                integrându-se direct cu baza de date ANAF pentru informații actualizate.
-                <br><br>
-                Pentru mai multe funcționalități, aștept tickete pe GitHub. 
-                Oricine dorește să extindă proiectul este mai mult decât binevenit să contribuie pe GitHub!
-            </p>
+        <div class="content-grid">
+            <div class="info-card">
+                <h3>Despre proiect</h3>
+                <p>
+                    Acesta este un proiect conceput pentru orice tip de date, dar în prezent se concentrează pe datele geografice și corporative românești. 
+                    API-ul include acum și funcționalitate de verificare a companiilor prin CUI (Cod Unic de Înregistrare), 
+                    integrându-se direct cu baza de date ANAF pentru informații actualizate.
+                    <br><br>
+                    Pentru mai multe funcționalități, aștept tickete pe GitHub. 
+                    Oricine dorește să extindă proiectul este mai mult decât binevenit să contribuie pe GitHub!
+                </p>
+            </div>
         </div>
         
         <div class="cta-section">
-            <a href="/api/docs" class="docs-link">📖 Documentația API</a>
-            <a href="https://github.com/alexandrusandu/romaniaendpoints" class="github-link" target="_blank">🔗 GitHub</a>
+            <a href="/api/docs" class="cta-button docs-link">Documentația API</a>
+            <a href="https://github.com/asanducristian/romaniaendpoints" class="cta-button github-link" target="_blank">GitHub</a>
         </div>
     </div>
     
     <div class="footer">
-        Făcut în România cu ❤️
+        Făcut în România cu dragostea
     </div>
 </body>
 </html> 

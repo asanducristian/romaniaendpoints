@@ -11,6 +11,9 @@ async function bootstrap() {
     exclude: [{ path: '', method: RequestMethod.GET }],
   });
 
+  const port = process.env.PORT || 3010;
+  const baseUrl = process.env.BASE_URL || `http://localhost:${port}`;
+
   // Swagger configuration
   const config = new DocumentBuilder()
     .setTitle('Romania Endpoints API')
@@ -18,22 +21,23 @@ async function bootstrap() {
       'API for Romanian counties and localities data\n\n**Rate Limiting:** 1 request per second per IP address',
     )
     .setVersion('1.0')
+    .addServer(baseUrl, 'API Server')
     .addTag('counties', 'Romanian counties operations')
     .addTag('localities', 'Romanian localities operations')
     .addTag('postal-codes', 'Romanian postal codes operations')
+    .addTag('companies', 'Romanian companies operations')
     .addTag('health', 'Health check operations')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/docs', app, document);
 
-  const port = process.env.PORT || 3010;
   await app.listen(port);
 
-  console.log(`Application is running on: http://localhost:${port}`);
-  console.log(`Landing page: http://localhost:${port}/`);
-  console.log(`API endpoints available at: http://localhost:${port}/api/`);
-  console.log(`Swagger documentation: http://localhost:${port}/api/docs`);
+  console.log(`Application is running on: ${baseUrl}`);
+  console.log(`Landing page: ${baseUrl}/`);
+  console.log(`API endpoints available at: ${baseUrl}/api/`);
+  console.log(`Swagger documentation: ${baseUrl}/api/docs`);
   console.log(`Rate limiting: 1 request per second per IP`);
 }
 bootstrap();
