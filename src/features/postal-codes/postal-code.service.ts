@@ -1,7 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../../shared/prisma.service';
 import { PostalCodeDto } from './dto/postal-code.dto';
-import { PostaRomanaUtil } from '../../shared/utils/posta-romana.util';
 
 @Injectable()
 export class PostalCodeService {
@@ -37,78 +36,7 @@ export class PostalCodeService {
         altitude: locality?.altitude,
       };
     } else {
-      console.log(
-        `Postal code '${code}' not found in database, fetching from posta-romana.ro`,
-      );
-      // Fetch from Posta Romana API
-      const externalData = await PostaRomanaUtil.fetchPostalCode(code);
-
-      if (externalData) {
-        try {
-          // Save the fetched data to our database
-          const newPostalCode = await this.prisma.postalCode.create({
-            data: {
-              code: externalData.code,
-              county: externalData.county,
-              locality: externalData.locality,
-              streetAddress: externalData.streetAddress,
-              postalSubunit: externalData.postalSubunit,
-            },
-          });
-
-          console.log(`Successfully saved postal code '${code}' to database`);
-
-          // Try to find matching locality data for the new postal code
-          const locality = await this.findMatchingLocality(
-            newPostalCode.locality,
-            newPostalCode.county,
-          );
-
-          result = {
-            code: newPostalCode.code,
-            county: newPostalCode.county,
-            locality: newPostalCode.locality,
-            streetAddress: newPostalCode.streetAddress,
-            postalSubunit: newPostalCode.postalSubunit,
-            lat: locality?.lat,
-            lng: locality?.lng,
-            auto: locality?.auto,
-            localityDiacritice: locality?.diacritice,
-            localityZip: locality?.zip,
-            populatie: locality?.populatie,
-            altitude: locality?.altitude,
-          };
-        } catch (error) {
-          console.error(
-            `Error saving postal code '${code}' to database:`,
-            error.message,
-          );
-          // Try to find locality data even if save failed
-          const locality = await this.findMatchingLocality(
-            externalData.locality,
-            externalData.county,
-          );
-
-          result = {
-            code: externalData.code,
-            county: externalData.county,
-            locality: externalData.locality,
-            streetAddress: externalData.streetAddress,
-            postalSubunit: externalData.postalSubunit,
-            lat: locality?.lat,
-            lng: locality?.lng,
-            auto: locality?.auto,
-            localityDiacritice: locality?.diacritice,
-            localityZip: locality?.zip,
-            populatie: locality?.populatie,
-            altitude: locality?.altitude,
-          };
-        }
-      } else {
-        throw new NotFoundException(
-          `Postal code '${code}' not found in database or external service`,
-        );
-      }
+      throw new NotFoundException(`Postal code '${code}' not found in database`);
     }
 
     return result;
